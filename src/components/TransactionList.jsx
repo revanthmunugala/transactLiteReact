@@ -25,8 +25,7 @@ export default function TransactionList({id, userName, emailAddress, amountSpent
                 <p>{emailAddress} </p>
                 <p>{amountSpent} </p>
             </div>
-
-
+            ß
      {isClicked && (
         transactionLogData.map((item) => (
              <div key={item.id}>
