@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom';
 import styles from '../cssModules/NavBar.module.css';
 
 export default function NavBar() {
-    return (<div className={styles.NavBarClass}>
+    return (
+        <div className={styles.NavBarClass}>
 
         <div>
         Welcome to TransactLite.
@@ -14,6 +15,7 @@ export default function NavBar() {
                 <Link to={"/Body"}>Start exploring TransactLite. </Link>
             </button>
         </div>
-    </div>);
+    </div>
+    );
 }
 

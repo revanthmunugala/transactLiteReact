@@ -1,0 +1,35 @@
+.BodyClass
+{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+    justify-content: space-around;
+    align-items: center;
+    border:solid black 1px;
+    margin:auto;
+    background-color:#EFD3D7;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+.BodyClass button{
+    height:50%;
+    background-color: #DEE2FF;
+    padding: 4%;
+    font-family: sans-serif;
+    color: blue;
+    width: max-content;
+    border: none;
+    box-shadow: 2px 2px rgba(222,226,255, 0.1);
+    font-size:large;
+    border-radius: 15px;
+}
+
+.BodyClass button:hover{
+    background-color: #FEEAFA;
+    box-shadow: 4px 4px rgba(0,0,0,0.2);
+}
