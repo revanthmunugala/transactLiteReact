@@ -20,22 +20,19 @@ export default function ShowTransaction() {
             }
             const jsonData = await response.json();
             setTransactionData(jsonData)
-            //console.log(jsonData);
-            //message = jsonData.message;
+
             SetMessage("Showed transaction");
         } catch (error) {
-            //message = error.message;
+
             SetMessage("Failed to get transaction");
         }
-
-        //console.log(message);
 
     }
 
     return (<div>
         <button onClick={(e) => show(e)}> Show Transactions</button>
 
-        {isClick && (<div>
+        {isClick && (<div >
 
                 {transactionData.map((item) => (<TransactionList key={item.id} id={item.id} userName={item.userName}
                                                                  emailAddress={item.emailAddress}

@@ -20,10 +20,8 @@ export default function TransactionList({id, userName, emailAddress, amountSpent
 
         <div>
 
-            <div id={id} onClick = {(e) =>(handleClick(e))}>
-                <p>{userName}</p>
-                <p>{emailAddress} </p>
-                <p>{amountSpent} </p>
+            <div style={{ display: 'inline' }} id={id} onClick = {(e) =>(handleClick(e))}>
+                {userName} {emailAddress} {amountSpent}
             </div>
             ß
      {isClicked && (

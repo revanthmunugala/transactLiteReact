@@ -8,7 +8,7 @@ export default function DeleteTransaction() {
     const [message,SetMessage]=useState("");
 
     async function handleClick(e) {
-        e.preventDefault();
+        //e.preventDefault();
         SetIsClick(true);
         try {
             const response = await fetch("http://localhost:8080/postTransactLiteCommon/deleteAll", {method: "DELETE"});

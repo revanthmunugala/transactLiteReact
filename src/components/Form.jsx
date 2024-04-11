@@ -1,18 +1,38 @@
 import styles from '../cssModules/Form.module.css';
-import React,{useState} from "react";
+import React, {useState} from "react";
 import ResponseLog from "./ResponseLog";
 //import ResponseLog from "./ResponseLog";
 
 export default function Form({click}) {
-    const [formData, setFormData] = useState({userName: '', email: '', itemDescription: '', amountSpent: ''});
+    const [formData, setFormData] = useState({userName: '', email: '', itemDescription: '', amountSpent: '', sharedUser:[]});
 
-    const [message,SetMessage]=useState("");
+    const [message, SetMessage] = useState("");
 
-    const[isClick,SetIsClick]=useState(false);
+    const [isClick, SetIsClick] = useState(false);
+
+    const [isMouseEnter, SetIsMouseEnter] = useState(false);
+
+    const [availableUsers, setAvailableUsers] = useState([]);
+
+    async function fetchUsers(e) {
+        e.preventDefault();
+        SetIsMouseEnter(true);
+
+        try {
+            const response = await fetch("http://localhost:8080/postTransactLiteCommon/getAllUsers");
+            if (!response.ok) {
+                console.log(response);
+            }
+            const jsonData = await response.json();
+            setAvailableUsers(jsonData)
+        } catch (error) {
+            console.log("Failed to fetch users from table.")
+        }
+    }
 
     async function post(e) {
 
-        e.preventDefault();
+        //e.preventDefault();
         SetIsClick("true");
         try {
 
@@ -26,10 +46,23 @@ export default function Form({click}) {
             }
             const responseText = await response.text();
             SetMessage(responseText);
+            console.log(formData);
         } catch (error) {
             SetMessage("Failed to Add transaction");
         }
 
+    }
+
+    function updateChange(e)
+    {
+        const value = e.target.value;
+        const sharedUsers = formData.sharedUser;
+        if(sharedUsers.includes(value)){
+            setFormData({...formData,sharedUser:sharedUsers.filter(user=>user!==value)});
+        }else
+        {
+            setFormData({...formData,sharedUser:[...formData.sharedUser,value]})
+        }
     }
 
     if (click) {
@@ -53,14 +86,31 @@ export default function Form({click}) {
                 setFormData(data => ({...data, amountSpent: e.target.value}))
             }}/>
 
+
+            <label>Share transaction among:</label>
+            <div onClick={e=>(fetchUsers(e))}>
+                Select users
+                {isMouseEnter &&
+                    availableUsers.map((user) => (
+                        <div key={user}>
+                            <input
+                                type="checkbox"
+                                value={user}
+                                checked={formData.sharedUser.includes(user)}
+                                onChange={(e) => updateChange(e)}
+                            />
+                            <label>{user}</label>
+                        </div>
+                    ))}
+
+            </div>
+
             <button type="submit" onClick={(e) => {
                 post(e)
             }}>Submit
             </button>
 
-            {isClick && (
-                <ResponseLog click = {isClick} message={message} />
-            )}
+            {isClick && (<ResponseLog click={isClick} message={message}/>)}
 
 
         </form>);
